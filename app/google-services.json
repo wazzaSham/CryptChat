@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "551951817137",
+    "firebase_url": "https://cryptchat-9b1eb.firebaseio.com",
+    "project_id": "cryptchat-9b1eb",
+    "storage_bucket": "cryptchat-9b1eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551951817137:android:a882cd60b4eafd30",
+        "android_client_info": {
+          "package_name": "com.example.cryptchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "551951817137-pmjcia5ut0s8c54ruk7t2ure62sfu0ma.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cryptchat",
+            "certificate_hash": "bcc55379a43f6fea860dd7f6825368647c1ff724"
+          }
+        },
+        {
+          "client_id": "551951817137-5kpf2ackdbifvcglb240jgftbt6t1v8h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATpTf4yhzhAIKklz5V0Rh5fqYRAPxZBic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "551951817137-5kpf2ackdbifvcglb240jgftbt6t1v8h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
