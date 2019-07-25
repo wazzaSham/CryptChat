@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".LoginActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -30,14 +30,6 @@
         <com.rengwuxian.materialedittext.MaterialEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/username"
-            android:hint="username"
-            android:layout_marginTop="10dp"
-            app:met_floatingLabel="normal"
-            />
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/email"
             android:hint="email"
             android:inputType="textEmailAddress"
@@ -56,8 +48,8 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/btn_register"
-            android:text="register"
+            android:id="@+id/btn_login"
+            android:text="login"
             android:background="@color/colorPrimaryDark"
             android:layout_marginTop="10dp"
             android:textColor="#ffff"/>
