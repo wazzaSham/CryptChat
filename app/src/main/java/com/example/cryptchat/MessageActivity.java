@@ -7,7 +7,10 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cryptchat.Model.User;
@@ -19,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessageActivity extends AppCompatActivity {
@@ -29,6 +34,8 @@ public class MessageActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
+    ImageButton btn_send;
+    EditText text_send;
     Intent intent;
 
     @Override
@@ -46,11 +53,27 @@ public class MessageActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btn_send = findViewById(R.id.btn_send);
+        text_send = findViewById(R.id.text_send);
         profile_image = findViewById(R.id.profile_image);
         username = findViewById(R.id.username);
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
+        final String userid = intent.getStringExtra("userid");
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        btn_send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String msg = text_send.getText().toString();
+                if(!msg.equals("")){
+                    sendMessage(firebaseUser.getUid(), userid, msg);
+                }else{
+                    Toast.makeText(getApplicationContext(),"Error! Cant Send Message!",Toast.LENGTH_LONG).show();
+                }
+                text_send.setText("");
+            }
+        });
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,6 +92,15 @@ public class MessageActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void sendMessage(String sender,String rcv, String msg){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        HashMap<String,Object>hashMap = new HashMap<>();
+        hashMap.put("sender",sender);
+        hashMap.put("receiver",rcv);
+        hashMap.put("message",msg);
+        reference.child("Chats").push().setValue(hashMap);
     }
 
 }
