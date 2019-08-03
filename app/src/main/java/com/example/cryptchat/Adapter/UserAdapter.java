@@ -22,10 +22,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     private Context context;
     private List<User>mUsers;
+    private boolean ischat;
 
-    public UserAdapter(Context context, List<User>us) {
+    public UserAdapter(Context context, List<User>us, boolean ischat) {
         this.context = context;
         this.mUsers = us;
+        this.ischat = ischat;
     }
 
     @NonNull
@@ -44,6 +46,19 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             holder.profile_image.setImageResource(R.mipmap.ic_launcher);
         }else{
             Glide.with(context).load(user.getImageURL()).into(holder.profile_image);
+        }
+
+        if(ischat){
+            if(user.getStatus().equals("online")){
+                holder.img_on.setVisibility(View.VISIBLE);
+                holder.img_off.setVisibility(View.GONE);
+            }else{
+                holder.img_on.setVisibility(View.GONE);
+                holder.img_off.setVisibility(View.VISIBLE);
+            }
+        }else {
+            holder.img_on.setVisibility(View.GONE);
+            holder.img_on.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -66,11 +81,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView username;
         public ImageView profile_image;
+        private ImageView img_on;
+        private ImageView img_off;
+
 
         public ViewHolder(View item){
             super(item);
             username = item.findViewById(R.id.username);
             profile_image = item.findViewById(R.id.profile_image);
+            img_off = item.findViewById(R.id.img_off);
+            img_on = item.findViewById(R.id.img_on);
         }
     }
 

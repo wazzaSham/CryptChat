@@ -84,24 +84,28 @@ public class ChatsFragment extends Fragment {
                 mUsers.clear();
 
                 //display 1 user From chat
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                    User user = snapshot.getValue(User.class);
-                    for(String id: userList){
-                        if(user.getId().equals(id)){
-                            if(mUsers.size()!=0){
-                                for(User user1: mUsers){
-                                    if(!user.getId().equals(user1.getId())){
-                                        mUsers.add(user);
+                try {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        User user = snapshot.getValue(User.class);
+                        for (String id : userList) {
+                            if (user.getId().equals(id)) {
+                                if (mUsers.size() != 0) {
+                                    for (User user1 : mUsers) {
+                                        if (!user.getId().equals(user1.getId())) {
+                                            mUsers.add(user);
+                                        }
                                     }
+                                } else {
+                                    mUsers.add(user);
                                 }
-                            }else{
-                                mUsers.add(user);
                             }
                         }
                     }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
-                userAdapter = new UserAdapter(getContext(),mUsers);
+                userAdapter = new UserAdapter(getContext(),mUsers, true);
                 recyclerView.setAdapter(userAdapter);
             }
 
