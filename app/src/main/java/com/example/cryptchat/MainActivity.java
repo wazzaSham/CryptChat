@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.example.cryptchat.Fragments.ChatsFragment;
 import com.example.cryptchat.Fragments.ProfileFragment;
 import com.example.cryptchat.Fragments.UsersFragment;
+import com.example.cryptchat.Model.Chat;
 import com.example.cryptchat.Model.User;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -73,20 +74,17 @@ public class MainActivity extends AppCompatActivity {
                     }
             }
 
-            private void showData(DataSnapshot dataSnapshot){
-                for(DataSnapshot data:dataSnapshot.getChildren()){
-                    Log.i("TESTING",data.toString());
-                }
-            }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-        ViewPager viewPager = findViewById(R.id.view_pager);
+        final TabLayout tabLayout = findViewById(R.id.tabLayout);
+        final ViewPager viewPager = findViewById(R.id.view_pager);
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         viewPagerAdapter.addFragment(new UsersFragment(), "Users");
@@ -95,6 +93,39 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
 
+        /*
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+                int unread = 0;
+                for(DataSnapshot snapshot:dataSnapshot.getChildren()){
+                    Chat chat = snapshot.getValue(Chat.class);
+                    if(chat.getReceiver().equals(firebaseUser.getUid())
+                    && !chat.isIsseen()){
+                        unread++;
+                    }
+
+                    if(unread == 0){
+                        viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                    }else{
+                        viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                    }
+
+                    viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+                    viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
+                    viewPager.setAdapter(viewPagerAdapter);
+                    tabLayout.setupWithViewPager(viewPager);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
     }
 
     @Override
