@@ -1,7 +1,5 @@
 package com.example.cryptchat.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,7 +22,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +69,6 @@ public class ChatsFragment extends Fragment {
             }
         });
         return view;
-
     }
 
     private void readChats(){
@@ -82,7 +78,6 @@ public class ChatsFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-
                 //display 1 user From chat
                 try {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -93,6 +88,7 @@ public class ChatsFragment extends Fragment {
                                     for (User user1 : mUsers) {
                                         if (!user.getId().equals(user1.getId())) {
                                             mUsers.add(user);
+                                            break;
                                         }
                                     }
                                 } else {
